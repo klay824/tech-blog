@@ -34,4 +34,3 @@ router.get('/newpost', withAuth, async (req, res) => {
     }
 });
 
-module.exports = router;
