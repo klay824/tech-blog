@@ -5,12 +5,22 @@ const withAuth = require('../utils/auth');
 router.get('/', async (req, res) => {
     try {
         const postData = await Post.findAll({
-            include: [User]
+            include: [
+                {
+                    model: User,
+                    attributes: ['username']
+                },
+            ],
+            attributes: { exclude: ['password'] },
         });
 
-        const posts = postData.map(post => post.get({ plain: true }));
+        const posts = postData.map((post) => post.get({ plain: true }));
 
-        res.render('homepage', { posts });
+        res.render('homepage', {
+            posts,
+            logged_in: req.session.logged_in,
+            logged_name: req.session.logged_name
+        });
     } catch (err) {
         console.log('ERROR: ', err);
         res.status(500).json(err);
@@ -25,6 +35,9 @@ router.get('/post/:id', async (req, res) => {
                     model: User,
                     attributes: ['username'],
                 },
+                {
+                    model: Comment
+                },
             ],
         });
 
@@ -32,7 +45,9 @@ router.get('/post/:id', async (req, res) => {
 
         res.render('post', {
             ...post,
-            logged_in: req.session.logged_in
+            user_id: req.session.user_id,
+            logged_in: req.session.logged_in,
+            logged_name: req.session.logged_name
         });
     } catch (err) {
         res.status(500).json(err);
@@ -48,12 +63,12 @@ router.get('/login', async (req, res) => {
     res.render('login');
 });
 
-// // router.get('/logout', async (req, res) => {
-
-// // });
-
-// router.get('/signup', async (req, res) => {
-
-// });
+router.get('/signup', async (req, res) => {
+    if (req.session.logged_in) {
+        res.redirect('/');
+        return;
+    }
+    res.render('signup');
+});
 
 module.exports = router;
