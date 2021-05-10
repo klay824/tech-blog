@@ -12,43 +12,48 @@ router.get('/', async (req, res) => {
 
         res.render('homepage', { posts });
     } catch (err) {
-            console.log('ERROR: ', err);
+        console.log('ERROR: ', err);
         res.status(500).json(err);
     }
 });
 
 router.get('/post/:id', async (req, res) => {
-try {
-    const postData = await Post.findByPk(req.params.id, {
-        include: [
-        {
-            model: User,
-            attributes: ['username'],
-        },
-        ],
-    });
+    try {
+        const postData = await Post.findByPk(req.params.id, {
+            include: [
+                {
+                    model: User,
+                    attributes: ['username'],
+                },
+            ],
+        });
 
-    const post = postData.get({ plain: true });
+        const post = postData.get({ plain: true });
 
-    res.render('post', {
-        ...post,
-        logged_in: req.session.logged_in
-    });
+        res.render('post', {
+            ...post,
+            logged_in: req.session.logged_in
+        });
     } catch (err) {
-    res.status(500).json(err);
+        res.status(500).json(err);
     }
 });
 
 router.get('/login', async (req, res) => {
+    if (req.session.logged_in) {
+        res.redirect('/dashboard');
+        return;
+    }
 
+    res.render('login');
 });
 
-// router.get('/logout', async (req, res) => {
+// // router.get('/logout', async (req, res) => {
+
+// // });
+
+// router.get('/signup', async (req, res) => {
 
 // });
-
-router.get('/signup', async (req, res) => {
-
-});
 
 module.exports = router;
