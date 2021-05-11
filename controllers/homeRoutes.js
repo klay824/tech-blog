@@ -11,18 +11,41 @@ router.get('/', async (req, res) => {
                     attributes: ['username']
                 },
             ],
-            attributes: { exclude: ['password'] },
         });
 
         const posts = postData.map((post) => post.get({ plain: true }));
 
         res.render('homepage', {
             posts,
-            logged_in: req.session.logged_in,
-            logged_name: req.session.logged_name
+            logged_in: req.session.logged_in
         });
     } catch (err) {
         console.log('ERROR: ', err);
+        res.status(500).json(err);
+    }
+});
+
+router.get('/dashboard', withAuth, async (req, res) => {
+    try {
+        const postData = await Post.findAll({
+            where: {
+                user_id: req.session.user_id,
+            },
+            include: [
+                {
+                    model: User,
+                    attributes: ['username'],
+                },
+            ],
+        });
+
+        const allPosts = postData.map((post) => post.get({ plain: true }));
+
+        res.render('dashboard', {
+            posts,
+            logged_in: req.session.logged_in,
+        });
+    } catch (err) {
         res.status(500).json(err);
     }
 });
@@ -35,19 +58,28 @@ router.get('/post/:id', async (req, res) => {
                     model: User,
                     attributes: ['username'],
                 },
+            ],
+        });
+
+        const postCommentData = await Comment.findAll({
+            where: {
+                post_id: req.params.id,
+            },
+            include: [
                 {
-                    model: Comment
+                    model: User,
+                    attributes: ['username'],
                 },
             ],
         });
 
         const post = postData.get({ plain: true });
+        const postComments = postCommentData.map((comment) => comment.get({ plain: true }));
 
         res.render('post', {
             ...post,
-            user_id: req.session.user_id,
-            logged_in: req.session.logged_in,
-            logged_name: req.session.logged_name
+            postComments,
+            logged_in: req.session.logged_in
         });
     } catch (err) {
         res.status(500).json(err);
@@ -56,7 +88,7 @@ router.get('/post/:id', async (req, res) => {
 
 router.get('/login', async (req, res) => {
     if (req.session.logged_in) {
-        res.redirect('/dashboard');
+        res.redirect('/api/dashboard');
         return;
     }
 
