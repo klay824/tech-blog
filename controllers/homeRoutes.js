@@ -48,6 +48,21 @@ router.get('/dashboard', withAuth, async (req, res) => {
     }
 });
 
+router.get('/create', withAuth, (req, res) => {
+    try {
+        if (req.session.logged_in) {
+            res.render('create', {
+                logged_in: req.session.logged_in
+            });
+            return;
+        }
+        res.redirect('/dashboard');
+    } catch (error) {
+        res.status(500).json(error);
+    }
+
+});
+
 router.get('/post/:id', async (req, res) => {
     try {
         const postData = await Post.findByPk(req.params.id, {
