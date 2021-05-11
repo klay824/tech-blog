@@ -5,7 +5,7 @@ const newFormHandler = async (event) => {
     const body = document.querySelector('#post-desc').value.trim();
 
     if (title && body) {
-        const response = await fetch(`/api/projects`, {
+        const response = await fetch(`/api/posts/dashboard`, {
             method: 'POST',
             body: JSON.stringify({ title, body }),
             headers: {
@@ -14,7 +14,7 @@ const newFormHandler = async (event) => {
         });
 
         if (response.ok) {
-            document.location.replace('/profile');
+            document.location.replace('/dashboard');
         } else {
             alert('Failed to create project');
         }
