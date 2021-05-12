@@ -21,5 +21,5 @@ const signupFormHandler = async (event) => {
 };
 
 document
-    .querySelector('.signup')
+    .querySelector('.signup-form')
     .addEventListener('submit', signupFormHandler);
