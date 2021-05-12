@@ -20,47 +20,8 @@ router.get('/', async (req, res) => {
             logged_in: req.session.logged_in
         });
     } catch (err) {
-        console.log('ERROR: ', err);
         res.status(500).json(err);
     }
-});
-
-router.get('/dashboard', withAuth, async (req, res) => {
-    try {
-        const postData = await Post.findAll({
-            include: [
-                {
-                    model: User,
-                    attributes: ['username']
-                },
-            ],
-        });
-
-        const posts = postData.map((post) => post.get({ plain: true }));
-
-        res.render('dashboard', {
-            posts,
-            logged_in: req.session.logged_in
-        });
-    } catch (err) {
-        console.log('ERROR: ', err);
-        res.status(500).json(err);
-    }
-});
-
-router.get('/create', withAuth, (req, res) => {
-    try {
-        if (req.session.logged_in) {
-            res.render('create', {
-                logged_in: req.session.logged_in
-            });
-            return;
-        }
-        res.redirect('/dashboard');
-    } catch (error) {
-        res.status(500).json(error);
-    }
-
 });
 
 router.get('/post/:id', async (req, res) => {
@@ -71,27 +32,21 @@ router.get('/post/:id', async (req, res) => {
                     model: User,
                     attributes: ['username'],
                 },
-            ],
-        });
-
-        const postCommentData = await Comment.findAll({
-            where: {
-                post_id: req.params.id,
-            },
-            include: [
                 {
-                    model: User,
-                    attributes: ['username'],
+                    model: Comment,
+                    attributes: ['id', 'comment', 'post_id', 'user_id', 'created_at'],
+                    include: {
+                        model: User,
+                        attributes: ['username'],
+                    },
                 },
             ],
         });
 
         const post = postData.get({ plain: true });
-        const postComments = postCommentData.map((comment) => comment.get({ plain: true }));
 
         res.render('post', {
             ...post,
-            postComments,
             logged_in: req.session.logged_in
         });
     } catch (err) {
@@ -101,7 +56,7 @@ router.get('/post/:id', async (req, res) => {
 
 router.get('/login', async (req, res) => {
     if (req.session.logged_in) {
-        res.redirect('/api/dashboard');
+        res.redirect('/dashboard');
         return;
     }
 
@@ -110,7 +65,7 @@ router.get('/login', async (req, res) => {
 
 router.get('/signup', async (req, res) => {
     if (req.session.logged_in) {
-        res.redirect('/');
+        res.redirect('/dashboard');
         return;
     }
     res.render('signup');
