@@ -35,7 +35,7 @@ router.get('/', withAuth, async (req, res) => {
     }
 });
 
-router.get('newentry', (req, res) => {
+router.get('/newentry', (req, res) => {
     if (!req.session.logged_in) {
         res.redirect('/login');
         return;
@@ -43,7 +43,7 @@ router.get('newentry', (req, res) => {
     res.render('new-entry');
 });
 
-router.get('edit/:id', withAuth, async (req, res) => {
+router.get('/edit/:id', withAuth, async (req, res) => {
     try {
         const postData = await Post.findByPk(req.params.id, {
             attributes: ['id', 'title', 'body', 'date_created'],
