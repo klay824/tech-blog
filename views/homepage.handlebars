@@ -1,10 +1,9 @@
 {{#each posts as |post|}}
-<div class="row align-center mb-5">
-    <div class="col">
-        <h3>
-            <a href="/post/{{post.id}}">{{post.title}}</a>
-        </h3>
-        <p>{{post.body}}</p>
-    </div>
-</div>
+
+{{> detail post}}
+
+{{else}}
+
+<h3>There are currently no blog entries.</h3>
+
 {{/each}}
