@@ -10,7 +10,7 @@ const addNewComment = async (event) => {
     if (newComment) {
         const response = await fetch('/api/comment', {
             method: 'POST',
-            body: JSON.stringify({ newComment, post_id }),
+            body: JSON.stringify({ comment: newComment, post_id }),
             headers: {
                 'Content-Type': 'application/json',
             },
