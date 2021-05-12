@@ -1,19 +1,17 @@
+<h1>Dashboard</h1>
+<a href='/dashboard/newentry'><button id='create-entry' class='btn'>Create New Entry</button></a>
+
+{{#if posts.length}}
 <div>
     <h3>
         Your post history:
     </h3>
+
     <div>
         {{#each posts as |post|}}
-        <div>
-            <div>
-                <h3>
-                    <a href="/post/{{id}}">{{title}}</a>
-                </h3>
-                <p>{{body}}</p>
-            </div>
-        </div>
-        {{/each}}
+        {{> detail post }}
+        <a href='/dashboard/edit/{{post.id}}'><button class='btn'>Edit</button>
+            {{/each}}
     </div>
 </div>
-
-<a type="button" class="btn" href='/create'>Create New</a>
+{{/if}}
