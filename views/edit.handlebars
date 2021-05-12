@@ -1,13 +1,13 @@
 <h1>Edit Your Entry</h1>
 
-<form>
+<form class="edit-form">
     <div class="form-group">
         <label for="blog-title">Title:</label>
         <input type="text" class="form-control" id="blog-title" value="{{post.title}}" type="text">
     </div>
     <div class="form-group">
         <label for="blog-content">Content: </label>
-        <textarea class="form-control" id="blog-comment" value="{{post.body}}" type="text">{{post.body}}</textarea>
+        <textarea class="form-control" id="blog-content" value="{{post.body}}" type="text">{{post.body}}</textarea>
     </div>
     <button type="submit" class="btn btn-primary">Update!</button>
     <button type="submit" class="btn btn-primary delete" post-id="{{post.id}}">Delete</button>
@@ -15,4 +15,5 @@
 
 
 {{!-- edit and delete scripts will go here --}}
+<script src="/public/js/edit.js"></script>
 <script src="/public/js/deletePost.js"></script>
