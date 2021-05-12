@@ -10,8 +10,9 @@
         <textarea class="form-control" id="blog-comment" value="{{post.body}}" type="text">{{post.body}}</textarea>
     </div>
     <button type="submit" class="btn btn-primary">Update!</button>
-    <button type="submit" class="btn btn-primary">Delete</button>
+    <button type="submit" class="btn btn-primary delete" post-id="{{post.id}}">Delete</button>
 </form>
 
 
 {{!-- edit and delete scripts will go here --}}
+<script src="/public/js/deletePost.js"></script>
