@@ -1,4 +1,4 @@
-const edit = async (event) => {
+const editPost = async (event) => {
     event.preventDefault();
 
     const title = document.querySelector('#blog-title').value.trim();
@@ -7,6 +7,8 @@ const edit = async (event) => {
         window.location.toString().split('/').length - 1
     ];
 
+    // alert(title + " " + content+" "+id);
+
     const response = await fetch(`/api/post/${id}`, {
         method: 'PUT',
         body: JSON.stringify({ title, content }),
@@ -14,10 +16,10 @@ const edit = async (event) => {
     });
 
     if (response.ok) {
-        document.location.replace('dashboard');
+        document.location.replace('/dashboard');
     } else {
-        alert('Failed to edit blog post.')
+        alert(response.statusText);
     }
 }
 
-document.querySelector('.edit-form').addEventListener('submit', edit);
+document.querySelector('.edit-form').addEventListener('submit', editPost);
