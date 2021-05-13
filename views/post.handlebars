@@ -7,6 +7,14 @@
     <p class="card-text">{{content}}</p>
   </div>
 
+  {{#each comments as |comment|}}
+  <div class='media'>
+    <div class='media-body text-right'>
+      <p>Comment posted by: {{user.username}} on {{format_date created_at}}</p>
+      <h6>{{comment.comment}}</h6>
+    </div>
+  </div>
+  {{/each}}
 
   {{#if logged_in}}
   <form class='new-comment'>
