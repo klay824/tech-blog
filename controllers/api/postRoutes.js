@@ -20,7 +20,7 @@ router.put('/:id', withAuth, async (req, res) => {
     const postData = await Post.update(
       {
         title: req.body.title,
-        content: req.body.content,
+        body: req.body.content,
       },
       {
         where: {
@@ -30,7 +30,6 @@ router.put('/:id', withAuth, async (req, res) => {
       }
     );
 
-    console.log(postData);
     if (!postData) {
       res.status(404).json({ message: 'No post found with this id!' });
       return;
