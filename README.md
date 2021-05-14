@@ -64,3 +64,8 @@ This project is covered under the MIT license.
 
 ### Comment Demo
 ![](gifs/comment-gif.gif)
+
+<br>
+
+### Authentication Demo
+![](gifs/auth-demo.gif)
