@@ -48,25 +48,25 @@ This project is covered under the MIT license.
 <br>
 
 ### Signup Demo
-![](assets\gifs\signup-gif.gif)
+![](gifs\signup-gif.gif)
 
 <br>
 
 ### Login Demo
-![](assets\gifs\login-gif.gif)
+![](gifs\login-gif.gif)
 
 <br>
 
 ### Update/Delete Demo
-![](assets\gifs\update-del-gif.gif)
+![](gifs\update-del-gif.gif)
 
 <br>
 
 ### Comment Demo
-![](assets\gifs\comment-gif.gif)
+![](gifs\comment-gif.gif)
 
 <br>
 
 ### Authentication Demo
-![](assets\gifs\auth-demo-gif.gif)
+![](gifs\auth-demo-gif.gif)
 
