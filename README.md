@@ -19,7 +19,6 @@ This is a project using Node.js, Express.js, Sequelize, and Handlebars to build 
 ## Technology Used
 * JavaScript
 * Node.js
-* Insomnia
 * MySql Workbench
 * Sequelize
 * Express.js
@@ -30,7 +29,7 @@ This is a project using Node.js, Express.js, Sequelize, and Handlebars to build 
 ## Resources
 * [Sequelize Documentation](https://sequelize.org/master/index.html)
 * [Handlebars Documentation](https://handlebarsjs.com/)
-
+* [Cookie-Session Documentation](http://expressjs.com/en/resources/middleware/cookie-session.html)
 <br>
 <br>
 
