@@ -69,4 +69,3 @@ This project is covered under the MIT license.
 
 ### Authentication Demo
 ![](gifs\auth-demo-gif.gif)
-
